@@ -36,7 +36,7 @@
         <a href="forgot_token.php"><button>Forgot Token?</button></a>
         <br />
         <br />
-        <a href="master.php"><button>Get Master(s) Public Key</button></a>
+        <a href="master.php"><button>Get Master Certificates</button></a>
         <br />
         <br />
         <a href="add_master.php"><button>Add Master Node</button></a>

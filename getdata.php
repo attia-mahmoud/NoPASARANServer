@@ -25,20 +25,28 @@
                     # accounts table fields
                     $token = $_POST['token'];
 
-                    $sql = "SELECT * FROM `workers` WHERE `token`='$token'";
-                    $query = mysqli_query($conn, $sql);
+                    $sql = "SELECT * FROM `workers` WHERE `token`=?";
+                    $stmt = mysqli_prepare($conn, $sql);
+
+                    // Bind the parameter
+                    mysqli_stmt_bind_param($stmt, "s", $token);
+                
+                    // Execute the statement
+                    mysqli_stmt_execute($stmt);
+                
+                    // Get the result
+                    $query = mysqli_stmt_get_result($stmt);
             
                     if ($query) {
                         echo '<h3>Workers associated with token <strong>' . $token . '</strong></h3>';
                         echo '<table>';
-                        echo '<tr><th>Name</th><th>Public IP</th><th>Public Key</th><th>Private Key</th><th>Certificate</th></tr>';
+                        echo '<tr><th>Name</th><th>Location</th><th>Public Key</th><th>Certificate</th></tr>';
                 
                         while ($row = mysqli_fetch_assoc($query)) {
                             echo '<tr>';
                             echo '<td>' . $row['name'] . '</td>';
-                            echo '<td>' . $row['ip'] . '</td>';
+                            echo '<td>' . $row['location'] . '</td>';
                             echo '<td>' . $row['public'] . '</td>';
-                            echo '<td>' . $row['private'] . '</td>';
                             echo '<td>' . $row['certificate'] . '</td>';
                             echo '</tr>';
                         }

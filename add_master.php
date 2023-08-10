@@ -13,7 +13,7 @@
 
     <body>
         <h1>Master Registration</h1>
-        <form action="gen_keys.php" method="POST">
+        <form action="upload_master.php" method="POST">
             <label for="password">Admin Password:</label>
             <input type="password" name="password" id="password" required />
             <br />
@@ -22,12 +22,12 @@
             <input type="text" name="name" id="name" required />
             <br />
             <br />
-            <label for="ip">Public IP:</label>
+            <label for="ip">Public IP or Domain:</label>
             <input type="text" name="ip" id="ip" required />
             <br />
             <br />
-            <label for="">Public Key:</label>
-            <input type="text" name="public" id="public" required />
+            <label for="certificate">Certificate:</label>
+            <input type="text" name="certificate" id="certificate" required />
             <input type="submit" name="submit" id="submit" />
         </form>
         <br />

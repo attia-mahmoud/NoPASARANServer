@@ -22,8 +22,8 @@
             <input type="text" name="name" id="name" required />
             <br />
             <br />
-            <label for="ip">Public IP:</label>
-            <input type="text" name="ip" id="ip" required />
+            <label for="location">Public IP:</label>
+            <input type="text" name="location" id="location" required />
             <br />
             <br />
             <input type="submit" name="submit" id="submit" />
