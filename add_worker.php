@@ -22,7 +22,7 @@
             <input type="text" name="name" id="name" required />
             <br />
             <br />
-            <label for="location">Public IP:</label>
+            <label for="location">Geographical Location:</label>
             <input type="text" name="location" id="location" required />
             <br />
             <br />

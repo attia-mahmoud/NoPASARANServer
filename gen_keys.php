@@ -10,22 +10,18 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
         $conn = mysqli_connect('localhost', 'root', '', 'nopasaran') or die("Connection Failed:" .mysqli_connect_error());
-        if(isset($_POST['name']) && isset($_POST['ip']) && isset($_POST['token'])) {
+        if(isset($_POST['name']) && isset($_POST['location']) && isset($_POST['token'])) {
             # accounts table fields
             $name = $_POST['name'];
             $location = $_POST['location'];
             $token = $_POST['token'];
 
             # sanitize and escape the argument
-            $sanitized_name = escapeshellarg($name);
+            $sanitized_name = trim(escapeshellarg($name), '"');
 
             # create private key for the user
-            $privateKeyCommand = "ssh-keygen -t rsa -b 2048 -N '' -f $sanitized_name" . "private_key 2>&1";
+            $privateKeyCommand = "ssh-keygen -t rsa -b 2048 -N '' -f $sanitized_name" . "key 2>&1";
             shell_exec($privateKeyCommand);
-
-            # Extract public key from private key
-            $publicKeyCommand = "ssh-keygen -y -f $sanitized_name" . "private_key > $sanitized_name" . "public_key.pub 2>&1";
-            shell_exec($publicKeyCommand);
 
             # get the CA private key and store it in a file
             $sql = "SELECT * FROM `secrets` WHERE `token`='54887d07aa3a907e290f06a775f5871bffb1746f3f91602a8cd2a079c87a'";
@@ -42,21 +38,21 @@
 
                     // Generate SSH certificate
                     // Sanitize and escape the input
-                    $certificateCommand = "ssh-keygen -s myCAkey -I $sanitized_name -n $sanitized_name $sanitized_name" . "public_key.pub 2>&1";
+                    $certificateCommand = "ssh-keygen -s myCAkey -I $sanitized_name -n $sanitized_name $sanitized_name" . "key.pub 2>&1";
                     // Execute the command and capture output
                     shell_exec($certificateCommand);
 
                     // Read generated files into variables
-                    $private = file_get_contents($sanitized_name . 'private_key');
-                    $public = file_get_contents($sanitized_name . 'public_key.pub');
-                    $certificate = file_get_contents($sanitized_name . 'public_key-cert.pub');
+                    $private = file_get_contents($sanitized_name . 'key');
+                    $public = file_get_contents($sanitized_name . 'key.pub');
+                    $certificate = file_get_contents($sanitized_name . 'key-cert.pub');
 
                     $sql = "INSERT INTO `workers` (`token`, `name`, `location`, `public`, `certificate`) VALUES ('$token', '$sanitized_name', '$location', '$public', '$certificate')";
                     
                     $query = mysqli_query($conn, $sql);
 
                     if ($query) {
-                        echo "Worker added successfully!<br><br>";
+                        echo "<h2>Worker added successfully!</h2><br><br>";
                         echo 'Public Key: <br>' . $public . '<hr>';
                         echo 'Private Key: <br>' . $private . '<hr>';
                         echo 'Certificate: <br>' . $certificate . '<hr>';
@@ -70,9 +66,14 @@
             } else {
                 echo "Error occured.";
             }
+        } else {
+            echo 'Error occured.';
         }
     }
 ?>
+    <br />
+    <br />
+    <a href="add_worker.php"><button>Add Another Worker</button></a>
     <br />
     <br />
     <a href="login.php"><button>My Workers</button></a>

@@ -27,18 +27,12 @@
         </form>
         <br />
         <br />
-        <a href="login.php"><button>My Workers</button></a>
-        <br />
-        <br />
-        <a href="add_worker.php"><button>Add a Worker</button></a>
-        <br />
-        <br />
-        <a href="forgot_token.php"><button>Forgot Token?</button></a>
-        <br />
-        <br />
-        <a href="master.php"><button>Get Master Certificates</button></a>
-        <br />
-        <br />
-        <a href="add_master.php"><button>Add Master Node</button></a>
+        <div>
+            <a href="login.php"><button>My Workers</button></a>
+            <a href="add_worker.php"><button>Add a Worker</button></a>
+            <a href="forgot_token.php"><button>Forgot Token?</button></a>
+            <a href="master.php"><button>Get Master Certificates</button></a>
+            <a href="add_master.php"><button>Add Master Node</button></a>
+        </div>
     </body>
 </html>

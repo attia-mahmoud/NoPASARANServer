@@ -30,6 +30,6 @@
         <a href="login.php"><button>Login with Token</button></a>
         <br />
         <br />
-        <a href="register.php"><button>Back to Home</button></a>
+        <a href="index.php"><button>Back to Home</button></a>
     </body>
 </html>
