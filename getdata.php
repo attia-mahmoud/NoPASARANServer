@@ -15,6 +15,13 @@
             tr {
                 border-bottom: 1px solid #000000;
             }
+            body {
+                text-align: center;
+            }
+            table {
+                width: 70%;
+                margin: 0 auto;
+            }
         </style>
     </head>
     <body>
@@ -38,17 +45,19 @@
                     $query = mysqli_stmt_get_result($stmt);
             
                     if ($query) {
-                        echo '<h3>Workers associated with token <strong>' . $token . '</strong></h3>';
+                        echo '<h3>Workers associated with token: <i>' . $token . '</i></h3>';
                         echo '<table>';
                         echo '<tr><th>Name</th><th>Location</th><th>Public Key</th><th>Certificate</th></tr>';
                 
                         while ($row = mysqli_fetch_assoc($query)) {
+                            $name = $row['name'];
+                            file_put_contents($name . 'key.pub', $row['public']);
+                            file_put_contents($name . 'key-cert.pub', $row['certificate']);
                             echo '<tr>';
-                            echo '<td>' . $row['name'] . '</td>';
+                            echo '<td>' . $name . '</td>';
                             echo '<td>' . $row['location'] . '</td>';
-                            echo '<td>' . $row['public'] . '</td>';
-                            echo '<td>' . $row['certificate'] . '</td>';
-                            echo "<td> <a href='$sanitized_name" . "key.pub' download='$sanitized_name'>Download</a> </td>";
+                            echo "<td> <a href='$name" . "key.pub' download='key.pub'>Download Public Key</a> </td>";
+                            echo "<td> <a href='$name" . "key-cert.pub' download='key-cert.pub'>Download SSH Certificate</a> </td>";
                             echo '</tr>';
                         }
             

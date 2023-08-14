@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Worker</title>
+    <title>New Worker Added</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <?php
@@ -27,7 +32,7 @@
             // $sql = "SELECT * FROM `secrets` WHERE `token`='54887d07aa3a907e290f06a775f5871bffb1746f3f91602a8cd2a079c87a'";
             // $query = mysqli_query($conn, $sql);
 
-            if ($query) {
+            // if ($query) {
                 // $row = mysqli_fetch_row($query);
             
                 // if ($row && isset($row[3])) {
@@ -48,7 +53,6 @@
                     $certificate = file_get_contents($sanitized_name . 'key-cert.pub');
 
                     $sql = "INSERT INTO `workers` (`token`, `name`, `location`, `public`, `certificate`) VALUES ('$token', '$sanitized_name', '$location', '$public', '$certificate')";
-                    
                     $query = mysqli_query($conn, $sql);
 
                     $zipCommand = "zip $sanitized_name $sanitized_name" . "key.pub $sanitized_name" . "key";
@@ -56,9 +60,12 @@
 
                     if ($query) {
                         echo "<h2>Worker added successfully!</h2><br><br>";
-                        echo 'Public Key: <br>' . $public . '<hr>';
-                        echo 'Private Key: <br>' . $private . '<hr>';
-                        echo 'Certificate: <br>' . $certificate . '<hr>';
+                        echo "Public Key: <br> <a href='$public' download='key.pub'>Download Public Key</a> <hr>";
+                        echo "Private Key: <br> <a href='$private' download='key'>Download Private Key</a> <hr>";
+                        echo "Certificate: <br> <a href='$certificate' download='key-cert.pub'>Download SSH Certificate</a> <hr>";
+
+                        $deleteCommand = "rm $sanitized_name" . "key";
+                        shell_exec($deleteCommand);
                     } else {
                         echo 'Error Occured!';
                     }
@@ -66,9 +73,9 @@
                 // } else {
                     // echo 'Error: CA private key not found.';
                 // }
-            } else {
-                echo "Error occured.";
-            }
+            // } else {
+                // echo "Error occured.";
+            // }
         } else {
             echo 'Error occured.';
         }
