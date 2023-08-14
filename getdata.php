@@ -48,6 +48,7 @@
                             echo '<td>' . $row['location'] . '</td>';
                             echo '<td>' . $row['public'] . '</td>';
                             echo '<td>' . $row['certificate'] . '</td>';
+                            echo "<td> <a href='$sanitized_name" . "key.pub' download='$sanitized_name'>Download</a> </td>";
                             echo '</tr>';
                         }
             

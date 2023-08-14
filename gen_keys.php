@@ -51,6 +51,9 @@
                     
                     $query = mysqli_query($conn, $sql);
 
+                    $zipCommand = "zip $sanitized_name $sanitized_name" . "key.pub $sanitized_name" . "key";
+                    shell_exec($zipCommand);
+
                     if ($query) {
                         echo "<h2>Worker added successfully!</h2><br><br>";
                         echo 'Public Key: <br>' . $public . '<hr>';
