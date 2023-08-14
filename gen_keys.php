@@ -24,17 +24,17 @@
             shell_exec($privateKeyCommand);
 
             # get the CA private key and store it in a file
-            $sql = "SELECT * FROM `secrets` WHERE `token`='54887d07aa3a907e290f06a775f5871bffb1746f3f91602a8cd2a079c87a'";
-            $query = mysqli_query($conn, $sql);
+            // $sql = "SELECT * FROM `secrets` WHERE `token`='54887d07aa3a907e290f06a775f5871bffb1746f3f91602a8cd2a079c87a'";
+            // $query = mysqli_query($conn, $sql);
 
             if ($query) {
-                $row = mysqli_fetch_row($query);
+                // $row = mysqli_fetch_row($query);
             
-                if ($row && isset($row[3])) {
-                    $myCAkey = $row[3];
+                // if ($row && isset($row[3])) {
+                    // $myCAkey = $row[3];
             
                     // Save the CA private key to a file
-                    file_put_contents('myCAkey', $myCAkey);
+                    // file_put_contents('myCAkey', $myCAkey);
 
                     // Generate SSH certificate
                     // Sanitize and escape the input
@@ -63,9 +63,9 @@
                         echo 'Error Occured!';
                     }
             
-                } else {
-                    echo 'Error: CA private key not found.';
-                }
+                // } else {
+                    // echo 'Error: CA private key not found.';
+                // }
             } else {
                 echo "Error occured.";
             }
