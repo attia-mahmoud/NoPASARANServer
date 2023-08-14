@@ -22,7 +22,7 @@
 <body>
     <div class="container">
         <h1>Master Registration</h1>
-        <form action="upload_master.php" method="POST" class="custom-form">
+        <form action="upload_master.php" method="POST" enctype="multipart/form-data" class="custom-form">
             <div class="mb-3">
                 <label for="password" class="form-label">Admin Password:</label>
                 <input type="password" class="form-control" name="password" id="password" required />
@@ -37,7 +37,7 @@
             </div>
             <div class="mb-3">
                 <label for="certificate" class="form-label">Certificate:</label>
-                <input type="text" class="form-control" name="certificate" id="certificate" required />
+                <input type="file" class="form-control" name="certificate" id="certificate" accept=".pem" required />
             </div>
             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
         </form>

@@ -19,20 +19,28 @@
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             $conn = mysqli_connect('localhost', 'root', '', 'nopasaran') or die("Connection Failed: " . mysqli_connect_error());
-            if (isset($_POST['password']) && isset($_POST['name']) && isset($_POST['ip']) && isset($_POST['certificate'])) {
+            if (isset($_POST['password']) && isset($_POST['name']) && isset($_POST['ip']) && isset($_FILES['certificate']['tmp_name'])) {
                 $password = $_POST['password'];
                 $name = $_POST['name'];
                 $ip = $_POST['ip'];
-                $certificate = $_POST['certificate'];
+                $certificateFile = $_FILES['certificate']['tmp_name'];
+                $certificateContent = file_get_contents($certificateFile);
 
                 if ($password == 'password') {
-                    $sql = "INSERT INTO `masters` (`name`, `ip`, `certificate`) VALUES ('$name', '$ip', '$certificate')";
-                    $query = mysqli_query($conn, $sql);
-                    if ($query) {
+                    $sql = "INSERT INTO `masters` (`name`, `ip`, `certificate`) VALUES ('$name', '$ip', ?)";
+                    $stmt = mysqli_prepare($conn, $sql);
+                    mysqli_stmt_bind_param($stmt, 's', $certificateContent);
+                    
+                    if (mysqli_stmt_execute($stmt)) {
                         echo '<div class="alert alert-success mt-3" role="alert">';
                         echo 'Master ' . $name . ' added successfully!<br>';
                         echo '</div>';
+                    } else {
+                        echo '<div class="alert alert-danger mt-3" role="alert">';
+                        echo 'Error adding master: ' . mysqli_error($conn);
+                        echo '</div>';
                     }
+                    mysqli_stmt_close($stmt);
                 } else {
                     echo '<div class="alert alert-danger mt-3" role="alert">';
                     echo 'Incorrect password.';
