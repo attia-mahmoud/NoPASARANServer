@@ -65,3 +65,53 @@ git clone https://github.com/attia-mahmoud/NoPASARANServer.git
 5. **Web Interface**: The project features a user-friendly web interface for easy registration and management of workers and master nodes.
 
 6. **Centralized Monitoring**: The server acts as a central point for monitoring worker and master node status, facilitating efficient node management.
+
+### Files Description
+
+- index.php
+
+This file serves as the main landing page of the web application. It provides the admin a form to register a new user account and offers links for adding workers, managing master nodes, logging in using a token, and accessing other features of the application.
+
+- register.php
+
+This file contains the backend for creating a new user account. It generates a unique user token to be used for future logins and for registering new worker nodes. 
+
+- login.php
+
+This file provides a login form that utilizes token-based authentication. Users can then see all the worker nodes associated with them.
+
+- getdata.php
+
+This file provides the backend for returning all the worker nodes associated with a provided token. It renders a table detailing the workers, with download links for the public key and SSH certificate.
+
+- forgot_token.php
+
+This file returns the token associated with a set of credentials, useful for when users receive their credentials from the admin for the first time or when they forget where they stored their token.
+
+- get_token.php
+
+This file provides the backend for retreiving a token from its associated set of credentials.
+
+- master.php
+
+This file displays a table listing all master nodes in the system, including the name of the master node, its domain (IP), and a link to download the associated master certificate.
+
+- add_master.php
+
+This file allows admins to add new master nodes by providing the admin password, a name for the master node, its IP/domain, and a certificate file. If successful, the master node's details are stored in the server.
+
+- upload_master.php
+
+This file provides the backend for adding a new master node.
+
+- add_workers.php
+
+This file provides a form for users to register a new worker node using their token, the worker nodes name, and its geographical location.
+
+- gen_keys.php
+
+This file provides the backend for registering new workers. It generates an SSH key pair and signed SSH certificate for the worker which can be downloaded as files. 
+
+
+
+
