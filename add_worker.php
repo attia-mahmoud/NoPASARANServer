@@ -12,6 +12,7 @@
             padding-top: 50px;
         }
         
+        /* Custom styling for the form */
         .custom-form {
             max-width: 400px; /* Adjust the maximum width as needed */
             margin: 0 auto;
@@ -21,7 +22,10 @@
 
 <body>
     <div class="container">
+        <!-- Heading for the form -->
         <h1>Worker Registration</h1>
+        
+        <!-- Form for worker registration -->
         <form action="gen_keys.php" method="POST" class="custom-form">
             <div class="mb-3">
                 <label for="token" class="form-label">Your Token:</label>
@@ -37,6 +41,8 @@
             </div>
             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
         </form>
+        
+        <!-- Additional navigation links -->
         <div class="mt-4">
             <a href="forgot_token.php" class="btn btn-secondary">Forgot Token?</a>
             <a href="index.php" class="btn btn-secondary">Back to Home</a>

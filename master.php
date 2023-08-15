@@ -22,16 +22,21 @@
 <body>
     <div class="container">
         <?php
+        // Establish a database connection
         $conn = mysqli_connect('localhost', 'root', '', 'nopasaran') or die("Connection Failed: " . mysqli_connect_error());
+
+        // Retrieve master nodes from the database
         $sql = "SELECT * FROM `masters`";
         $query = mysqli_query($conn, $sql);
 
+        // Display heading and create a table for master nodes
         echo '<h1>Master Nodes</h1>';
         echo '<div class="table-container">';
         echo '<table class="table table-bordered table-striped mt-3">';
         echo '<thead class="table-dark"><tr><th>Name</th><th>Domain</th><th>Certificate</th></tr></thead>';
         echo '<tbody>';
 
+        // If master nodes are found, populate the table with data
         if ($query) {
             while ($row = mysqli_fetch_assoc($query)) {
                 $name = $row['name'];
@@ -47,9 +52,11 @@
             echo '</table>';
             echo '</div>';
         } else {
+            // Display a warning message if no master nodes are found
             echo '<div class="alert alert-warning" role="alert">No master nodes found.</div>';
         }
         ?>
+        <!-- Navigation link to go back to the home page -->
         <div class="mt-4">
             <a href="index.php" class="btn btn-primary">Back to Home</a>
         </div>

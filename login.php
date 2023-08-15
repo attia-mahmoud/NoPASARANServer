@@ -22,13 +22,17 @@
 <body>
     <div class="container">
         <h1>Login with Token</h1>
+        <!-- Form to submit a token for login -->
         <form action="getdata.php" method="POST" class="custom-form">
+            <!-- Token input field -->
             <div class="mb-3">
                 <label for="token" class="form-label">Token:</label>
                 <input type="text" class="form-control" name="token" id="token" required />
             </div>
+            <!-- Submit button -->
             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
         </form>
+        <!-- Navigation link to go back to the registration page -->
         <div class="mt-4">
             <a href="index.php" class="btn btn-secondary">Back to Register</a>
         </div>

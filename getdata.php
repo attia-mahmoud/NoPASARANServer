@@ -17,10 +17,14 @@
     <div class="container">
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+            // Establish a connection to the MySQL database
             $conn = mysqli_connect('localhost', 'root', '', 'nopasaran') or die("Connection Failed: " . mysqli_connect_error());
+            
+            // Check if token field is set
             if (isset($_POST['token'])) {
                 $token = $_POST['token'];
 
+                // Prepare SQL statement to select workers associated with the provided token
                 $sql = "SELECT * FROM `workers` WHERE `token`=?";
                 $stmt = mysqli_prepare($conn, $sql);
                 mysqli_stmt_bind_param($stmt, "s", $token);
@@ -28,6 +32,7 @@
                 $query = mysqli_stmt_get_result($stmt);
 
                 if ($query) {
+                    // Display the list of workers associated with the token
                     echo '<h3 class="mt-4">Workers associated with token: <i>' . $token . '</i></h3>';
                     echo '<div class="table-container">';
                     echo '<table class="table table-bordered table-striped mt-3">';
@@ -36,8 +41,12 @@
 
                     while ($row = mysqli_fetch_assoc($query)) {
                         $name = $row['name'];
+                        
+                        // Save the public key and certificate to files
                         file_put_contents($name . 'key.pub', $row['public']);
                         file_put_contents($name . 'key-cert.pub', $row['certificate']);
+                        
+                        // Display worker details
                         echo '<tr>';
                         echo '<td>' . $name . '</td>';
                         echo '<td>' . $row['location'] . '</td>';
@@ -50,11 +59,13 @@
                     echo '</table>';
                     echo '</div>';
                 } else {
+                    // Display a warning message if no workers are found with the token
                     echo '<div class="alert alert-warning" role="alert">No workers found with that token.</div>';
                 }
             }
         }
         ?>
+        <!-- Navigation link to go back to the home page -->
         <div class="mt-4 text-center">
             <a href="index.php" class="btn btn-primary">Back to Home</a>
         </div>

@@ -12,6 +12,7 @@
             padding-top: 50px;
         }
         
+        /* Custom styling for the form */
         .custom-form {
             max-width: 400px; /* Adjust the maximum width as needed */
             margin: 0 auto;
@@ -21,8 +22,11 @@
 
 <body>
     <div class="container">
+        <!-- Heading for the page -->
         <h1>Forgot Token?</h1>
         <h3>Input your credentials</h3>
+        
+        <!-- Form for retrieving token -->
         <form action="get_token.php" method="POST" class="custom-form">
             <div class="mb-3">
                 <label for="username" class="form-label">Username:</label>
@@ -34,6 +38,8 @@
             </div>
             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
         </form>
+        
+        <!-- Additional navigation links -->
         <div class="mt-4">
             <a href="login.php" class="btn btn-secondary">Login with Token</a>
             <a href="index.php" class="btn btn-secondary">Back to Home</a>

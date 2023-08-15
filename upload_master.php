@@ -18,7 +18,10 @@
     <div class="container">
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+            // Establish a database connection
             $conn = mysqli_connect('localhost', 'root', '', 'nopasaran') or die("Connection Failed: " . mysqli_connect_error());
+            
+            // Retrieve form data
             if (isset($_POST['password']) && isset($_POST['name']) && isset($_POST['ip']) && isset($_FILES['certificate']['tmp_name'])) {
                 $password = $_POST['password'];
                 $name = $_POST['name'];
@@ -26,22 +29,27 @@
                 $certificateFile = $_FILES['certificate']['tmp_name'];
                 $certificateContent = file_get_contents($certificateFile);
 
+                // Check if password is correct
                 if ($password == 'password') {
+                    // Prepare and execute the SQL statement
                     $sql = "INSERT INTO `masters` (`name`, `ip`, `certificate`) VALUES ('$name', '$ip', ?)";
                     $stmt = mysqli_prepare($conn, $sql);
                     mysqli_stmt_bind_param($stmt, 's', $certificateContent);
                     
                     if (mysqli_stmt_execute($stmt)) {
+                        // Display success message if master is added successfully
                         echo '<div class="alert alert-success mt-3" role="alert">';
                         echo 'Master ' . $name . ' added successfully!<br>';
                         echo '</div>';
                     } else {
+                        // Display error message if there's an issue with adding the master
                         echo '<div class="alert alert-danger mt-3" role="alert">';
                         echo 'Error adding master: ' . mysqli_error($conn);
                         echo '</div>';
                     }
                     mysqli_stmt_close($stmt);
                 } else {
+                    // Display error message if password is incorrect
                     echo '<div class="alert alert-danger mt-3" role="alert">';
                     echo 'Incorrect password.';
                     echo '</div>';
@@ -49,6 +57,7 @@
             }
         }
         ?>
+        <!-- Navigation links -->
         <div class="mt-4">
             <a href="master.php" class="btn btn-primary">All Masters</a>
             <a href="index.php" class="btn btn-primary">Back Home</a>

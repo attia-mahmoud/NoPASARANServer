@@ -23,16 +23,20 @@
         <h1>Welcome to NoPASARAN</h1>
         <h3>Create an account</h3>
         <form action="register.php" method="POST" class="custom-form">
+            <!-- Username input field -->
             <div class="mb-3">
                 <label for="username" class="form-label">Username:</label>
                 <input type="text" class="form-control" name="username" id="username" required />
             </div>
+            <!-- Password input field -->
             <div class="mb-3">
                 <label for="password" class="form-label">Password:</label>
                 <input type="password" class="form-control" name="password" id="password" required />
             </div>
+            <!-- Register button -->
             <button type="submit" class="btn btn-primary" name="submit">Register</button>
         </form>
+        <!-- Navigation links -->
         <div class="mt-4">
             <a href="login.php" class="btn btn-secondary">My Workers</a>
             <a href="add_worker.php" class="btn btn-secondary">Add a Worker</a>
